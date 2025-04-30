@@ -1,4 +1,4 @@
-user = "First"
+user = "Two"
 pwd = "p123"
 
-print(f"Hello Welcom {user} this is your password {pwd}")
+print(f"Hello Welcome {user} this is your password {pwd}")
