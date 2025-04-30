@@ -25,7 +25,11 @@ connection()
 root = mainwindow()
 
 # Frames
-
+loginFrame = Frame(root, bg="black")
+menuFrame = Frame(root, bg="black")
+profileFrame = Frame(root, bg="black")
+noteFrame = Frame(root, bg="black")
+todolistFrame = Frame(root, bg="black")
 
 # Images
 
