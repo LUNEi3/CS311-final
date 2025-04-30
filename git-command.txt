@@ -1,0 +1,11 @@
+วิธีเซฟงาน
+1. git checkout first_branch
+2. git add .
+3. git commit -m "(อธิบายสิ่งที่ทำ เช่น Add something.py, Update something.py)"
+
+วิธีเซฟงานขึ้น GitHub
+1. git checkout first_branch
+2. git status 
+    เพื่อเช็คว่าไฟล์ไหนที่ยังไม่เซฟ
+3. git push origin first_branch
+
