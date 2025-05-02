@@ -29,7 +29,14 @@ def mainwindow():
 
 
 # Note
-
+def notePage():
+    loginFrame.grid_forget()
+    profileFrame.grid_forget()
+    todolistFrame.grid_forget()
+    noteFrame.rowconfigure((0,1,2), weight=1)
+    noteFrame.columnconfigure((0,1), weight=1)
+    noteFrame.grid(row=0, column=1, sticky="news")
+    Label(noteFrame, bg="#547792", fg="black", text="Note", font="Garamond 26 bold").grid(row=0, column=0, columnspan=2, sticky="news")
 
 # To-do List
 
@@ -41,7 +48,7 @@ root = mainwindow()
 loginFrame = Frame(root, bg="black")
 menuFrame = Frame(root, bg="#ECEFCA")
 profileFrame = Frame(root, bg="black")
-noteFrame = Frame(root, bg="black")
+noteFrame = Frame(root, bg="#94B4C1")
 todolistFrame = Frame(root, bg="black")
 
 # Config menuFrame 
@@ -56,5 +63,10 @@ menuFrame.grid(row=0, column=0, sticky="news")
 
 # Images
 
+
+# Testing sage
+USER = "test1"
+menuFrame.grid(row=0, column=0, sticky="news")
+notePage()
 
 root.mainloop()
