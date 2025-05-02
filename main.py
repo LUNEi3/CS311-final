@@ -58,9 +58,9 @@ def notePage():
         for item in result:
             Radiobutton(foundFrame, bg="white", fg="black", text=f"{item[2]}", font="Garamond 18", variable=spy, value=item[0], justify="left").pack(anchor="w", padx=10)
 
-    Button(noteFrame, bg="#94B4C1", fg="black", text="Show note", width=10).grid(row=1, column=1, pady=20, sticky="s", ipady=10)
-    Button(noteFrame, bg="#94B4C1", fg="black", text="Add note", width=10).grid(row=2, column=1, pady=20, ipady=10)
-    Button(noteFrame, bg="#94B4C1", fg="black", text="Edit note", width=10).grid(row=3, column=1, pady=20, sticky="n", ipady=10)
+    Button(noteFrame, bg="white", fg="black", text="Show note", width=10).grid(row=1, column=1, pady=20, sticky="s", ipady=10)
+    Button(noteFrame, bg="white", fg="black", text="Add note", width=10).grid(row=2, column=1, pady=20, ipady=10)
+    Button(noteFrame, bg="white", fg="black", text="Edit note", width=10).grid(row=3, column=1, pady=20, sticky="n", ipady=10)
 
 
 def getNote():
