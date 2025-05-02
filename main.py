@@ -22,6 +22,18 @@ def mainwindow():
     return root
 
 
+# Login/Register
+
+
+# Profile
+
+
+# Note
+
+
+# To-do List
+
+
 connection()
 root = mainwindow()
 
@@ -40,6 +52,7 @@ Button(menuFrame, bg="#ECEFCA", fg="black", text="Profile", width=20).grid(row=1
 Button(menuFrame, bg="#ECEFCA", fg="black", text="Note", width=20).grid(row=2, column=0, ipady=15)
 Button(menuFrame, bg="#ECEFCA", fg="black", text="To Do List", width=20).grid(row=3, column=0, ipady=15)
 Button(menuFrame, bg="#ECEFCA", fg="black", text="Exit Program", width=20, command=exit).grid(row=4, column=0, ipady=15)
+menuFrame.grid(row=0, column=0, sticky="news")
 
 # Images
 
