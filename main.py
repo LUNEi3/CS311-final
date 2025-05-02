@@ -35,7 +35,7 @@ todolistFrame = Frame(root, bg="black")
 # Config menuFrame 
 menuFrame.rowconfigure((0,1,2,3,4), weight=1)
 menuFrame.columnconfigure(0, weight=1)
-Label(menuFrame, bg="#ECEFCA", fg="black", text="Personal Dashboard.", font="Garamond 26 bold").grid(row=0, column=0, ipady=15)
+Label(menuFrame, bg="#ECEFCA", fg="black", text="Personal Dashboard", font="Garamond 26 bold").grid(row=0, column=0, ipady=15)
 Button(menuFrame, bg="#ECEFCA", fg="black", text="Profile", width=20).grid(row=1, column=0, ipady=15)
 Button(menuFrame, bg="#ECEFCA", fg="black", text="Note", width=20).grid(row=2, column=0, ipady=15)
 Button(menuFrame, bg="#ECEFCA", fg="black", text="To Do List", width=20).grid(row=3, column=0, ipady=15)
