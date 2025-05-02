@@ -1,5 +1,6 @@
 from sqlite3 import *
 from tkinter import *
+import textwrap
 
 def connection():
     global conn, cursor
