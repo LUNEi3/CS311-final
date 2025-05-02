@@ -17,7 +17,8 @@ def mainwindow():
     root.config(bg='#94B4C1')
     root.title("CS311 Final Project: Personal Dashboard")
     root.option_add("*font", "Garamond 20")
-    root.columnconfigure((0,1), weight=1)
+    root.columnconfigure(0, weight=1)
+    root.columnconfigure(1, weight=2)
     root.rowconfigure(0, weight=1)
     return root
 
