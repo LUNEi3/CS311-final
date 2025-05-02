@@ -34,10 +34,44 @@ def notePage():
     loginFrame.grid_forget()
     profileFrame.grid_forget()
     todolistFrame.grid_forget()
-    noteFrame.rowconfigure((0,1,2), weight=1)
-    noteFrame.columnconfigure((0,1), weight=1)
+    result = getNote()
+    noteFrame.rowconfigure(0, weight=1)
+    noteFrame.rowconfigure((1,2,3), weight=2)
+    noteFrame.columnconfigure((0), weight=3)
+    noteFrame.columnconfigure((1), weight=1)
     noteFrame.grid(row=0, column=1, sticky="news")
     Label(noteFrame, bg="#547792", fg="black", text="Note", font="Garamond 26 bold").grid(row=0, column=0, columnspan=2, sticky="news")
+
+    foundFrame = Frame(noteFrame, bg="white")
+    notFoundFrame = Frame(noteFrame, bg="white")
+    spy = IntVar()
+    if result == 0:
+        foundFrame.grid_forget()
+        Label(notFoundFrame, bg="#94B4C1", fg="black", text="No note here").pack(expand=TRUE)
+        notFoundFrame.grid(row=1, rowspan=3, column=0, sticky="news")
+    else:
+        notFoundFrame.grid_forget()
+        foundFrame.rowconfigure(0, weight=1)
+        foundFrame.columnconfigure((0,1), weight=1)
+        foundFrame.grid(row=1, rowspan=3, column=0, sticky="news", padx=20, pady=20)
+        for item in result:
+            Radiobutton(foundFrame, bg="white", fg="black", text=f"{item[2]}", font="Garamond 18", variable=spy, value=item[0], justify="left").pack(anchor="w", padx=10)
+
+    Button(noteFrame, bg="#94B4C1", fg="black", text="Show note", width=10).grid(row=1, column=1, pady=20, sticky="s", ipady=10)
+    Button(noteFrame, bg="#94B4C1", fg="black", text="Add note", width=10).grid(row=2, column=1, pady=20, ipady=10)
+    Button(noteFrame, bg="#94B4C1", fg="black", text="Edit note", width=10).grid(row=3, column=1, pady=20, sticky="n", ipady=10)
+
+
+def getNote():
+    sql = "SELECT * FROM notes WHERE username=?"
+    cursor.execute(sql, [USER])
+    result = cursor.fetchall()
+    if result:
+        print(result)
+        return result
+    else:
+        print("No result")
+        return 0
 
 # To-do List
 
