@@ -48,7 +48,7 @@ def notePage():
     spy = IntVar()
     if result == 0:
         foundFrame.grid_forget()
-        Label(notFoundFrame, bg="#94B4C1", fg="black", text="No note here").pack(expand=TRUE)
+        Label(notFoundFrame, bg="white", fg="black", text="No note here").pack(expand=TRUE)
         notFoundFrame.grid(row=1, rowspan=3, column=0, sticky="news")
     else:
         notFoundFrame.grid_forget()
@@ -69,7 +69,7 @@ def getNote():
     result = cursor.fetchall()
     if result:
         print(result)
-        return result
+        return 0
     else:
         print("No result")
         return 0
