@@ -37,6 +37,8 @@ def notePage():
     profileFrame.grid_forget()
     todolistFrame.grid_forget()
     curNoteFrame.grid_forget()
+    addNoteFrame.grid_forget()
+    editNoteFrame.grid_forget()
     result = getNote()
     noteFrame.rowconfigure(0, weight=1)
     noteFrame.rowconfigure((1,2,3), weight=2)
@@ -66,13 +68,15 @@ def notePage():
             Radiobutton(foundFrame, bg="white", fg="black", text=f"{item[2]}", font="Garamond 18", variable=spy, value=item[0], justify="left").pack(anchor="w", padx=10)
 
     Button(listNoteFrame, bg="white", fg="black", text="Show note", width=10, command=lambda: showNote(spy.get())).grid(row=0, column=1, pady=20, sticky="s", ipady=10)
-    Button(listNoteFrame, bg="white", fg="black", text="Add note", width=10).grid(row=1, column=1, pady=20, ipady=10)
+    Button(listNoteFrame, bg="white", fg="black", text="Add note", width=10, command=addNote).grid(row=1, column=1, pady=20, ipady=10)
     Button(listNoteFrame, bg="white", fg="black", text="Edit note", width=10).grid(row=2, column=1, pady=20, sticky="n", ipady=10)
 
 
 def showNote(id):
     print(f"ID: {id}")
     listNoteFrame.grid_forget()
+    addNoteFrame.grid_forget()
+    editNoteFrame.grid_forget()
     curNoteFrame.rowconfigure((0,1,2), weight=1)
     curNoteFrame.columnconfigure((0), weight=5)
     curNoteFrame.columnconfigure((1), weight=1)
@@ -94,11 +98,32 @@ def showNote(id):
     else:
         Label(contentFrame, bg="white", fg="black", text=f"Please select note.", font="Garamond 26 bold").grid(row=0, column=0, sticky="news")
 
-    Button(curNoteFrame, bg="white", fg="black", text="Back", command=notePage).grid(row=0, column=1, pady=25, ipady=10, ipadx=20)
+    Button(curNoteFrame, bg="white", fg="black", text="Back", command=notePage).grid(row=0, column=1, pady=25, ipadx=20, ipady=10)
 
 
 def addNote():
-    ...
+    listNoteFrame.grid_forget()
+    curNoteFrame.grid_forget()
+    editNoteFrame.grid_forget()
+    addNoteFrame.rowconfigure((0,1,2), weight=1)
+    addNoteFrame.columnconfigure(0, weight=1)
+    addNoteFrame.columnconfigure(1, weight=1)
+    addNoteFrame.grid(row=1, rowspan=3, column=0, sticky="news")
+
+    formFrame = Frame(addNoteFrame, bg="white")
+    formFrame.rowconfigure((0,1), weight=1)
+    formFrame.columnconfigure((0,1), weight=1)
+    formFrame.grid(row=0, rowspan=2, column=0, columnspan=2, sticky="news", padx=20, pady=20)
+
+    Label(formFrame, bg="white", fg="black", text="Title:").grid(row=0, column=0, sticky="es", padx=20, pady=20)
+    titleEntry = Entry(formFrame, bg="white", fg="black", width=20)
+    titleEntry.grid(row=0, column=1, sticky="ws", padx=20, pady=20)
+    Label(formFrame, bg="white", fg="black", text="Content:").grid(row=1, column=0, sticky="en", padx=20, pady=20)
+    contentEntry = Entry(formFrame, bg="white", fg="black", width=20)
+    contentEntry.grid(row=1, column=1, sticky="wn", padx=20, pady=20)
+
+    Button(addNoteFrame, bg="white", fg="black", text="Back", width=20, command=notePage).grid(row=2, column=0, padx=20, pady=25, ipadx=20, ipady=10, sticky="e")
+    Button(addNoteFrame, bg="white", fg="black", text="Add", width=20).grid(row=2, column=1, padx=20, pady=25, ipadx=20, ipady=10, sticky="w")
 
 
 def editNote():
@@ -128,6 +153,8 @@ profileFrame = Frame(root, bg="black")
 noteFrame = Frame(root, bg="#94B4C1")
 curNoteFrame = Frame(noteFrame, bg="#94B4C1")
 listNoteFrame = Frame(noteFrame, bg="#94B4C1")
+addNoteFrame = Frame(noteFrame, bg="#94B4C1")
+editNoteFrame = Frame(noteFrame, bg="#94B4C1")
 todolistFrame = Frame(root, bg="black")
 
 # Config menuFrame 
