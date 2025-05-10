@@ -1,6 +1,8 @@
 from sqlite3 import *
 from tkinter import *
 from tkinter import messagebox
+
+
 def connection():
     global conn, cursor
     conn = connect("database/project.db")
@@ -164,8 +166,4 @@ menuFrame.grid(row=0, column=0, sticky="news")
 
 # Images
 
-
-
-# Images
-loginlayout()
 root.mainloop()
