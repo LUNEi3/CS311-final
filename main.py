@@ -168,5 +168,5 @@ Button(menuFrame, bg="white", fg="black", text="Exit Program", width=20, command
 
 # Images
 
-
+USER = ""
 root.mainloop()
