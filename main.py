@@ -169,9 +169,4 @@ Button(menuFrame, bg="white", fg="black", text="Exit Program", width=20, command
 # Images
 
 
-# Testing sage
-USER = "test1"
-menuFrame.grid(row=0, column=0, sticky="news")
-notePage()
-
 root.mainloop()
