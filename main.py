@@ -32,9 +32,11 @@ def mainwindow():
 
 # Note
 def notePage():
+    global foundFrame, notFoundFrame
     loginFrame.grid_forget()
     profileFrame.grid_forget()
     todolistFrame.grid_forget()
+    curNoteFrame.grid_forget()
     result = getNote()
     noteFrame.rowconfigure(0, weight=1)
     noteFrame.rowconfigure((1,2,3), weight=2)
@@ -58,9 +60,37 @@ def notePage():
         for item in result:
             Radiobutton(foundFrame, bg="white", fg="black", text=f"{item[2]}", font="Garamond 18", variable=spy, value=item[0], justify="left").pack(anchor="w", padx=10)
 
-    Button(noteFrame, bg="white", fg="black", text="Show note", width=10).grid(row=1, column=1, pady=20, sticky="s", ipady=10)
+    Button(noteFrame, bg="white", fg="black", text="Show note", width=10, command=lambda: showNote(spy.get())).grid(row=1, column=1, pady=20, sticky="s", ipady=10)
     Button(noteFrame, bg="white", fg="black", text="Add note", width=10).grid(row=2, column=1, pady=20, ipady=10)
     Button(noteFrame, bg="white", fg="black", text="Edit note", width=10).grid(row=3, column=1, pady=20, sticky="n", ipady=10)
+
+
+def showNote(id):
+    print(f"ID: {id}")
+    noteFrame.grid_forget()
+    curNoteFrame.rowconfigure(0, weight=1)
+    curNoteFrame.rowconfigure((1,2,3), weight=2)
+    curNoteFrame.columnconfigure((0), weight=3)
+    curNoteFrame.columnconfigure((1), weight=1)
+    curNoteFrame.grid(row=0, column=1, sticky="news")
+    Label(curNoteFrame, bg="#547792", fg="black", text="Note", font="Garamond 26 bold").grid(row=0, column=0, columnspan=2, sticky="news")
+    Button(curNoteFrame, bg="white", fg="black", text="Back", command=notePage).grid(row=1, column=1, pady=25, ipady=10, ipadx=20)
+    contentFrame = Frame(curNoteFrame, bg="white")
+    contentFrame.rowconfigure(0, weight=1)
+    contentFrame.rowconfigure(1, weight=5)
+    contentFrame.columnconfigure(0, weight=1)
+    contentFrame.grid(row=1, rowspan=3, column=0, sticky="news", padx=20, pady=20)
+
+    # Fetch content
+    sql = "SELECT * FROM notes WHERE id=?"
+    cursor.execute(sql, [id])
+    result = cursor.fetchone()
+    if result:
+        Label(contentFrame, bg="white", fg="black", text=f"Title: {result[2]}", font="Garamond 26 bold").grid(row=0, column=0, sticky="news")
+        Label(contentFrame, bg="white", fg="black", text=f"{result[3]}").grid(row=1, column=0, sticky="nw", padx=20, pady=20)
+    else:
+        Label(contentFrame, bg="white", fg="black", text=f"Please select note.", font="Garamond 26 bold").grid(row=0, column=0, sticky="news")
+
 
 
 def getNote():
@@ -68,8 +98,7 @@ def getNote():
     cursor.execute(sql, [USER])
     result = cursor.fetchall()
     if result:
-        print(result)
-        return 0
+        return result
     else:
         print("No result")
         return 0
@@ -85,6 +114,7 @@ loginFrame = Frame(root, bg="black")
 menuFrame = Frame(root, bg="#ECEFCA")
 profileFrame = Frame(root, bg="black")
 noteFrame = Frame(root, bg="#94B4C1")
+curNoteFrame = Frame(root, bg="#94B4C1")
 todolistFrame = Frame(root, bg="black")
 
 # Config menuFrame 
