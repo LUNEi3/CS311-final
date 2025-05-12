@@ -191,8 +191,14 @@ def showNote(id):
     cursor.execute(sql, [id])
     result = cursor.fetchone()
     if result:
+        wrapper = textwrap.TextWrapper(width=50) 
+        texts = result[3].splitlines()
+        content = []
+        for item in texts:
+            content.append(wrapper.fill(text=item))
+        content = "\n".join(content)
         Label(contentFrame, bg="white", fg="black", text=f"Title: {result[2]}", font="Garamond 26 bold").grid(row=0, column=0, sticky="news")
-        Label(contentFrame, bg="white", fg="black", text=f"{result[3]}").grid(row=1, column=0, sticky="nw", padx=20, pady=20)
+        Label(contentFrame, bg="white", fg="black", text=f"{content}", justify="left").grid(row=1, column=0, sticky="nw", padx=20, pady=20)
     else:
         Label(contentFrame, bg="white", fg="black", text=f"Please select note.", font="Garamond 26 bold").grid(row=0, column=0, sticky="news")
 
