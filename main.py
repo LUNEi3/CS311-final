@@ -376,11 +376,13 @@ def taskToggle(spy, id):
 
 def addTask():
     newTask = simpledialog.askstring("Add Task", "Task:")
-    sql = "INSERT INTO to_do_list VALUES (null, ?, ?, 0)"
-    cursor.execute(sql, [USER, newTask])
-    conn.commit()
-    messagebox.showinfo("Admin", "Add new task successfully")
-    toDoListPage()
+    newTask = newTask.strip()
+    if newTask != "":
+        sql = "INSERT INTO to_do_list VALUES (null, ?, ?, 0)"
+        cursor.execute(sql, [USER, newTask])
+        conn.commit()
+        messagebox.showinfo("Admin", "Add new task successfully")
+        toDoListPage()
 
 
 def clearTask():
