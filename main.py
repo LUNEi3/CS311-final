@@ -11,7 +11,7 @@ def connection():
 
 def mainwindow():
     root = Tk()
-    w = 1500
+    w = 1300
     h = 800
     x = root.winfo_screenwidth()/2 - w/2
     y = root.winfo_screenheight()/2 - h/2
@@ -20,7 +20,7 @@ def mainwindow():
     root.title("CS311 Final Project: Personal Dashboard")
     root.option_add("*font", "Garamond 20")
     root.columnconfigure(0, weight=1)
-    root.columnconfigure(1, weight=2)
+    root.columnconfigure(1, weight=5)
     root.rowconfigure(0, weight=1)
     return root
 
@@ -325,6 +325,63 @@ def getNotes():
         return 0
 
 # To-do List
+def toDoListPage():
+    global checkBtns
+    loginFrame.grid_forget()
+    profileFrame.grid_forget()
+    noteFrame.grid_forget()
+    result = getToDolist()
+    todolistFrame.rowconfigure((0,4), weight=1)
+    todolistFrame.rowconfigure((1,2,3), weight=2)
+    todolistFrame.columnconfigure((0,2), weight=3)
+    todolistFrame.columnconfigure(1, weight=1)
+    todolistFrame.grid(row=0, column=1, sticky="news")
+
+    # Title
+    title = Label(todolistFrame, bg="#547792", fg="black", text="To Do List", font="Garamond 26 bold")
+    title.grid(row=0, column=0, columnspan=3, sticky="news")
+    
+    left = Frame(todolistFrame, bg="white")
+    left.grid(row=1, rowspan=3, column=0, sticky="news", padx=20, pady=20)
+    right = Frame(todolistFrame, bg="white")
+    right.grid(row=1, rowspan=3, column=2, sticky="news", padx=20, pady=20)
+
+    checkBtns = []
+    spy = [IntVar() for item in result]
+    for i,item in enumerate(result):
+        if item[3] == 0:
+            checkBtns.append(Checkbutton(left, bg="white", fg="black", text=item[2], variable=spy[i], onvalue=1, command=lambda var=spy[i], id=item[0]: taskToggle(var, id)))
+        else:
+            checkBtns.append(Checkbutton(right, bg="white", fg="black",text=item[2], variable=spy[i], onvalue=0, command=lambda var=spy[i], id=item[0]: taskToggle(var, id)))
+
+    for item in checkBtns:
+        item.pack(padx=10, pady=5, anchor="w")
+
+    Button(todolistFrame, bg="white", fg="black", text="Add Task", width=10).grid(row=4, column=0, pady=20, ipady=10, ipadx=20)
+    Button(todolistFrame, bg="white", fg="black", text="Delete Task", width=10).grid(row=4, column=2, pady=20, ipady=10, ipadx=20)
+
+
+def taskToggle(spy, id):
+    value = spy.get()
+    sql = "UPDATE to_do_list SET is_done=? WHERE id=?"
+    cursor.execute(sql, [value, id])
+    conn.commit()
+
+    for item in checkBtns:
+        item.destroy()
+    
+    toDoListPage()
+
+
+def getToDolist():
+    sql = "SELECT * FROM to_do_list WHERE username=?"
+    cursor.execute(sql, [USER])
+    result = cursor.fetchall()
+    if result:
+        return result
+    else:
+        print("ERROR on getToDoList():")
+        return 0
 
 
 connection()
@@ -357,7 +414,7 @@ menuFrame.rowconfigure((0,1,2,3,4), weight=1)
 menuFrame.columnconfigure(0, weight=1)
 Label(menuFrame, bg="#ECEFCA", fg="black", text="Personal Dashboard", font="Garamond 26 bold").grid(row=0, column=0, ipady=15)
 Button(menuFrame, bg="white", fg="black", text="Profile", width=20).grid(row=1, column=0, ipady=15)
-Button(menuFrame, bg="white", fg="black", text="Note", width=20).grid(row=2, column=0, ipady=15)
+Button(menuFrame, bg="white", fg="black", text="Note", width=20, command=notePage).grid(row=2, column=0, ipady=15)
 Button(menuFrame, bg="white", fg="black", text="To Do List", width=20).grid(row=3, column=0, ipady=15)
 Button(menuFrame, bg="white", fg="black", text="Exit Program", width=20, command=exit).grid(row=4, column=0, ipady=15)
 menuFrame.grid(row=0, column=0, sticky="news")
