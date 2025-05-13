@@ -1,6 +1,7 @@
 from sqlite3 import *
 from tkinter import *
 from tkinter import messagebox
+from tkinter import simpledialog
 import textwrap
 
 def connection():
@@ -357,8 +358,8 @@ def toDoListPage():
     for item in checkBtns:
         item.pack(padx=10, pady=5, anchor="w")
 
-    Button(todolistFrame, bg="white", fg="black", text="Add Task", width=10).grid(row=4, column=0, pady=20, ipady=10, ipadx=20)
-    Button(todolistFrame, bg="white", fg="black", text="Delete Task", width=10).grid(row=4, column=2, pady=20, ipady=10, ipadx=20)
+    Button(todolistFrame, bg="white", fg="black", text="Add Task", width=10, command=addTask).grid(row=4, column=0, pady=20, ipady=10, ipadx=20)
+    Button(todolistFrame, bg="white", fg="black", text="Clear Task", width=10, command=clearTask).grid(row=4, column=2, pady=20, ipady=10, ipadx=20)
 
 
 def taskToggle(spy, id):
@@ -371,6 +372,25 @@ def taskToggle(spy, id):
         item.destroy()
     
     toDoListPage()
+
+
+def addTask():
+    newTask = simpledialog.askstring("Add Task", "Task:")
+    sql = "INSERT INTO to_do_list VALUES (null, ?, ?, 0)"
+    cursor.execute(sql, [USER, newTask])
+    conn.commit()
+    messagebox.showinfo("Admin", "Add new task successfully")
+    toDoListPage()
+
+
+def clearTask():
+    response = messagebox.askyesno("Admin", "This will clear all task that done")
+    if response:
+        sql = "DELETE FROM to_do_list WHERE is_done=1 AND username=?"
+        cursor.execute(sql, [USER])
+        conn.commit()
+        messagebox.showinfo("Admin", "Clear successfully")
+        toDoListPage()
 
 
 def getToDolist():
@@ -415,7 +435,7 @@ menuFrame.columnconfigure(0, weight=1)
 Label(menuFrame, bg="#ECEFCA", fg="black", text="Personal Dashboard", font="Garamond 26 bold").grid(row=0, column=0, ipady=15)
 Button(menuFrame, bg="white", fg="black", text="Profile", width=20).grid(row=1, column=0, ipady=15)
 Button(menuFrame, bg="white", fg="black", text="Note", width=20, command=notePage).grid(row=2, column=0, ipady=15)
-Button(menuFrame, bg="white", fg="black", text="To Do List", width=20).grid(row=3, column=0, ipady=15)
+Button(menuFrame, bg="white", fg="black", text="To Do List", width=20, command=toDoListPage).grid(row=3, column=0, ipady=15)
 Button(menuFrame, bg="white", fg="black", text="Exit Program", width=20, command=exit).grid(row=4, column=0, ipady=15)
 menuFrame.grid(row=0, column=0, sticky="news")
 
