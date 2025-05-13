@@ -24,7 +24,6 @@ def mainwindow():
 
 
 # Login/Register
-
 def layout() :
     # left = Frame(master,bg='#AB886D')
     top.grid(row=0,sticky='news')
@@ -99,7 +98,6 @@ def register_account():
         return
 
     try:
-        # เพิ่มข้อมูลผู้ใช้ใหม่
         cursor.execute("INSERT INTO users (username, password, name) VALUES (?, ?, ?)", (username, password, name))
         conn.commit()
         messagebox.showinfo("Success", "Account created successfully")
@@ -110,8 +108,9 @@ def register_account():
 def go_back_to_login():
     register.grid_forget()
     loginFrame.grid(sticky='news')
+    
+    
 # Profile
-
 def view_profile(username):
     cursor.execute("SELECT * FROM profiles WHERE username=?", (username,))
     profile_data = cursor.fetchone()
@@ -154,15 +153,18 @@ cfinfo = StringVar()
 nameinfo = StringVar()
 
 # Config menuFrame 
-def menu() :
-    menuFrame.rowconfigure((0,1,2,3,4), weight=1)
-    menuFrame.columnconfigure(0, weight=1)
-    Label(menuFrame, bg="#ECEFCA", fg="black", text="Personal Dashboard", font="Garamond 26 bold").grid(row=0, column=0, ipady=15)
-    Button(menuFrame, text="Profile", width=20, command=lambda: view_profile(current_user)).grid(row=1, column=0, ipady=15)
-    Button(menuFrame, bg="white", fg="black", text="Note", width=20).grid(row=2, column=0, ipady=15)
-    Button(menuFrame, bg="white", fg="black", text="To Do List", width=20).grid(row=3, column=0, ipady=15)
-    Button(menuFrame, bg="white", fg="black", text="Exit Program", width=20, command=exit).grid(row=4, column=0, ipady=15)
-    menuFrame.grid(row=0, column=0, sticky="news")
+menuFrame.rowconfigure((0,1,2,3,4), weight=1)
+menuFrame.columnconfigure(0, weight=1)
+Label(menuFrame, bg="#ECEFCA", fg="black", text="Personal Dashboard", font="Garamond 26 bold").grid(row=0, column=0, ipady=15)
+Button(menuFrame, bg="white", fg="black", text="Profile", width=20).grid(row=1, column=0, ipady=15)
+Button(menuFrame, bg="white", fg="black", text="Note", width=20).grid(row=2, column=0, ipady=15)
+Button(menuFrame, bg="white", fg="black", text="To Do List", width=20).grid(row=3, column=0, ipady=15)
+Button(menuFrame, bg="white", fg="black", text="Exit Program", width=20, command=exit).grid(row=4, column=0, ipady=15)
+menuFrame.grid(row=0, column=0, sticky="news")
+
+# Images
+
+
 
 # Images
 loginlayout()
