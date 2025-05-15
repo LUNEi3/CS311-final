@@ -104,6 +104,7 @@ def registerClick():
             else:
                 cursor.execute("INSERT INTO users (username, password, name) VALUES (?, ?, ?)", [userEntry.get(), pwdEntry.get(), nameEntry.get()])
                 cursor.execute("INSERT INTO profiles VALUES (null, ?, ?)", [userEntry.get(), ""])
+                conn.commit()
                 messagebox.showinfo("Admin", "Account created successfully")
                 loginPage()
 
