@@ -215,8 +215,11 @@ def notePage():
     
     foundNoteFrame = Frame(listNoteFrame, bg="white")
     spy = IntVar()
+    
+    # In case no result
     if result == 0:
         foundNoteFrame.grid_forget()
+        notFoundNoteFrame.lift()
         notFoundNoteFrame.grid(row=0, rowspan=3, column=0, sticky="news")
     else:
         notFoundNoteFrame.grid_forget()
@@ -376,8 +379,10 @@ def getNotes():
     cursor.execute(sql, [USER])
     result = cursor.fetchall()
     if result:
+        print(result)
         return result
     else:
+        print("No result must show no notes")
         return 0
 
 
