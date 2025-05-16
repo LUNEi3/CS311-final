@@ -379,10 +379,8 @@ def getNotes():
     cursor.execute(sql, [USER])
     result = cursor.fetchall()
     if result:
-        print(result)
         return result
     else:
-        print("No result must show no notes")
         return 0
 
 
